@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 15:59:31 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/09/07 15:35:10 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/09/09 18:44:32 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,24 @@ void	arena_print(uint8_t *arena)
 	}
 }
 
-//remake with valide order champ
-t_champion	*valid_champions(char **chmp_file_name, size_t col_champs)
-{
-	t_champion	*champs;
-	t_champion	*head;
-
-	head = parse_champion(chmp_file_name[col_champs - 1], col_champs);
-	champs = head;
-	while (--col_champs != 0)
-	{
-		champs->next = parse_champion(chmp_file_name[col_champs - 1], col_champs);
-		champs = champs->next;
-	}
-	return (head);
-}
-
 int main(int argc, char **argv)
 {
-	char *files[3] = {"Car.cor" ,"Car.cor" , "maxidef.cor"}; // for debug
-	// char *files[2] = {"Car.cor" , "maxidef.cor"};
+	// char *files[3] = {"vm/maxidef.cor", "vm/Car.cor" ,"vm/Car.cor" }; // for debug
+	char *files[2] = {"Car.cor" , "maxidef.cor"};
 	t_vm		*vm;
 	size_t		col_champs = (size_t)argc - 1;
 	
-	col_champs = 3;
+	col_champs = 2;
 	vm = init_vm(col_champs);
 	argv[0]++;
 	vm->champs = valid_champions(files, col_champs);
-	ft_printf("HI!!! \n");
+	vm->cursor = valid_cursor(vm->champs);
 	init_arena(vm);
 	arena_print(vm->arena);
+	while (vm->cursor)
+	{
+		ft_printf("%d\n", vm->cursor->regs[0]);
+		vm->cursor = vm->cursor->next;
+	}
 	return (0);
 }
