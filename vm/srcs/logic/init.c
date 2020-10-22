@@ -6,25 +6,26 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:00:59 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/09/09 18:44:22 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/22 22:54:16 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-t_carriage	*init_carrige(int id)
+t_carriage	*init_carrige(int col_champs, int id)
 {
 	t_carriage	*cursor;
 
 	if ((cursor = (t_carriage*)ft_memalloc(sizeof(t_carriage))) == NULL)
 		ft_exit("ERROR: MALLOC");
-	cursor->command = 0;
+	cursor->opcode = 0;
 	cursor->cycle_to_die = 0;
-	cursor->position = NULL;
+	cursor->program_counter = MEM_SIZE / col_champs * (id - 1);
 	ft_memset(cursor->regs, 0, REG_NUMBER);
 	cursor->regs[0] = -id;
-	cursor->next = NULL;
 	cursor->carry = 0;
+	cursor->live = 0;
+	cursor->next = NULL;
 	return (cursor);
 }
 

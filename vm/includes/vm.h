@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/09/09 19:15:17 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/22 22:54:06 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 // 	int		op; // продумать представление операции
 // }				t_opt;
 
+# define TRUE 1
+# define FALSE 0
+# define OPCODE_SIZE	1
+# define MAX_ARGS		3
+
 typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;
 typedef struct s_vm			t_vm;
@@ -36,9 +41,10 @@ struct s_carriage
 {
 	int32_t					regs[REG_NUMBER];
 	int						cycle_to_die;
-	int						command;
+	int						live;
+	uint8_t					opcode;
 	int						carry;
-	uint8_t					*position;
+	int					program_counter;
 	t_carriage				*next;
 };
 
@@ -53,18 +59,6 @@ struct						s_vm
 };
 
 
-struct						s_op
-{
-	char	*name_oper;
-	int		col_arg;
-	int		*type_arg;
-	int		opcode;
-	int		cycle_to_die;
-	char	*comment;
-	int		change_carry;
-	int		code_type_arg;
-};
-
 struct						s_champion
 {
 	t_header	header;
@@ -77,9 +71,27 @@ void						ft_exit(char *str);
 t_champion					*init_champ(int id);
 t_vm						*init_vm(size_t col_champs);
 void						init_arena(t_vm *vm);
-t_carriage					*init_carrige(int id);
+t_carriage					*init_carrige(int col_champs, int id);
 t_champion					*parse_champion(char *chmp_file_name, int id);
 t_champion					*valid_champions(char **chmp_file_name, size_t col_champs);
-t_carriage					*valid_cursor(t_champion *players);
+t_carriage					*valid_cursor(t_champion *players, int col_champs);
+
+
+int			op_live(uint8_t *arena, t_carriage *carriage);
+int			op_ld(uint8_t *arena, t_carriage *carriage);
+int			op_st(uint8_t *arena, t_carriage *carriage);
+int			op_add(uint8_t *arena, t_carriage *carriage);
+int			op_sub(uint8_t *arena, t_carriage *carriage);
+int			op_and(uint8_t *arena, t_carriage *carriage);
+int			op_or(uint8_t *arena, t_carriage *carriage);
+int			op_xor(uint8_t *arena, t_carriage *carriage);
+int			op_zjmp(uint8_t *arena, t_carriage *carriage);
+int			op_ldi(uint8_t *arena, t_carriage *carriage);
+int			op_sti(uint8_t *arena, t_carriage *carriage);
+int			op_fork(uint8_t *arena, t_carriage *carriage);
+int			op_lld(uint8_t *arena, t_carriage *carriage);
+int			op_lldi(uint8_t *arena, t_carriage *carriage);
+int			op_lfork(uint8_t *arena, t_carriage *carriage);
+int			op_aff(uint8_t *arena, t_carriage *carriage);
 
 #endif

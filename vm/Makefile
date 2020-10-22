@@ -1,3 +1,4 @@
+
 NAME = corewar
 CFLAGS := -Wall -Wextra -Werror -g
 
@@ -15,23 +16,29 @@ SRC_DIR = srcs/
 SRC_DIR_PARSE = parse/
 SRC_DIR_LOGIC = logic/
 SRC_DIR_OUTPUT = output/
+SRC_DIR_OPERATION = $(addprefix $(SRC_DIR_LOGIC), operation/)
 
 SRC_MAIN = main.c
 SRC_PARSE_FILES = parse_champion.c 
 SRC_LOGIC_FILES = init.c validation.c
+SRC_OPERATION_FILES = live.c
 SRC_OUTPUT_FILES =
+
 
 SRC_PARSE = $(addprefix $(SRC_DIR_PARSE), $(SRC_PARSE_FILES))
 SRC_VALIDATE = $(addprefix $(SRC_DIR_VALIDATE), $(SRC_VALIDATE_FILES))
 SRC_LOGIC = $(addprefix $(SRC_DIR_LOGIC), $(SRC_LOGIC_FILES))
+SRC_OPERATION = $(addprefix $(SRC_DIR_OPERATION), $(SRC_OPERATION_FILES))
 SRC_OUTPUT = $(addprefix $(SRC_DIR_OUTPUT), $(SRC_OUTPUT_FILES))
 
-SRCS_LST = $(SRC_MAIN) $(SRC_PARSE) $(SRC_VALIDATE) $(SRC_LOGIC) $(SRC_OUTPUT)
+SRCS_LST = $(SRC_MAIN) $(SRC_PARSE) $(SRC_VALIDATE) $(SRC_LOGIC) $(SRC_OUTPUT) \
+			$(SRC_OPERATION)
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LST))
 
 OBJ_DIR = objects/
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(SRC_DIR_PARSE)) $(addprefix $(OBJ_DIR), $(SRC_DIR_LOGIC)) \
-			$(addprefix $(OBJ_DIR), $(SRC_DIR_OUTPUT)) $(addprefix $(OBJ_DIR), $(SRC_DIR_VALIDATE))
+			$(addprefix $(OBJ_DIR), $(SRC_DIR_OUTPUT)) $(addprefix $(OBJ_DIR), $(SRC_DIR_VALIDATE)), \
+			$(addprefix $(OBJ_DIR), $(SRC_DIR_OPERATION))
 OBJ_LST = $(patsubst %.c, %.o, $(SRCS_LST))
 OBJ	= $(addprefix $(OBJ_DIR), $(OBJ_LST))
 

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snorcros <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:31:47 by snorcros          #+#    #+#             */
-/*   Updated: 2019/09/22 17:59:38 by snorcros         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:25:09 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 
 static int	check_overlong(long long prev, int sign, char s)
 {

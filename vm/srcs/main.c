@@ -6,11 +6,12 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 15:59:31 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/09/09 18:44:32 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/22 22:54:58 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "vm.h"
+// # include "operation.h"
 
 void		ft_exit(char *str)
 {
@@ -54,7 +55,7 @@ void	arena_print(uint8_t *arena)
 int main(int argc, char **argv)
 {
 	// char *files[3] = {"vm/maxidef.cor", "vm/Car.cor" ,"vm/Car.cor" }; // for debug
-	char *files[2] = {"Car.cor" , "maxidef.cor"};
+	char *files[2] = {"maxidef.cor", "Car.cor" };
 	t_vm		*vm;
 	size_t		col_champs = (size_t)argc - 1;
 	
@@ -62,13 +63,17 @@ int main(int argc, char **argv)
 	vm = init_vm(col_champs);
 	argv[0]++;
 	vm->champs = valid_champions(files, col_champs);
-	vm->cursor = valid_cursor(vm->champs);
 	init_arena(vm);
+	vm->cursor = valid_cursor(vm->champs, col_champs);
 	arena_print(vm->arena);
-	while (vm->cursor)
-	{
-		ft_printf("%d\n", vm->cursor->regs[0]);
-		vm->cursor = vm->cursor->next;
-	}
+	// while (vm->cursor)
+	// {
+	// 	ft_printf("%d\n%d\n", vm->cursor->program_counter, vm->cursor->regs[0]);
+	// 	vm->cursor = vm->cursor->next;
+	// }
+	op_live(vm->arena, vm->cursor);
+	ft_printf("%d\n%d\n", vm->cursor->program_counter, vm->cursor->live);
+	// ft_printf("%p\n%p\n", vm->cursor->program_counter + MEM_SIZE - 1, &(vm->arena[MEM_SIZE - 1]));
+	// ft_printf("%d\n%d\n", *(vm->cursor->program_counter + MEM_SIZE - 1), vm->arena[MEM_SIZE - 1]);
 	return (0);
 }
