@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:09:41 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/22 21:26:20 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/23 15:25:48 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ struct						s_op
 
 t_op    g_op_tab[17] =
 {
-	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, op_live}
-// 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, op_ld},
+	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, op_live},
+	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, op_ld}
 // 	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, op_st},
 // 	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0, op_add},
 // 	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0, op_sub},

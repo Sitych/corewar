@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/22 22:54:06 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/23 17:48:13 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define FALSE 0
 # define OPCODE_SIZE	1
 # define MAX_ARGS		3
+# define TYPE_ARGS_SIZE	1
 
 typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;
@@ -44,7 +45,7 @@ struct s_carriage
 	int						live;
 	uint8_t					opcode;
 	int						carry;
-	int					program_counter;
+	int						program_counter;
 	t_carriage				*next;
 };
 
