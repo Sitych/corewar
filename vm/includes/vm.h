@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/23 17:48:13 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/24 15:22:03 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,15 @@
 # include <sys/uio.h>
 # include <fcntl.h>
 
-///"live", 1, {T_DIR}, 1, 10, "alive", 0, 0
-// typedef struct s_opt
-// {
-// 	int		tab_index; // index in op_tab (op.c)
-// 	int		op; // продумать представление операции
-// }				t_opt;
-
 # define TRUE 1
 # define FALSE 0
 # define OPCODE_SIZE	1
 # define MAX_ARGS		3
 # define TYPE_ARGS_SIZE	1
+
+# define REG_SIZE_BYTE	1
+# define DIR_SIZE_BYTE	4
+# define IND_SIZE_BYTE	2
 
 typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;

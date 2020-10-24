@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 15:59:31 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/22 22:54:58 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/24 17:12:13 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int main(int argc, char **argv)
 	// 	ft_printf("%d\n%d\n", vm->cursor->program_counter, vm->cursor->regs[0]);
 	// 	vm->cursor = vm->cursor->next;
 	// }
-	op_live(vm->arena, vm->cursor);
-	ft_printf("%d\n%d\n", vm->cursor->program_counter, vm->cursor->live);
+	// op_live(vm->arena, vm->cursor);
+	vm->cursor->opcode = 2;
+	op_ld(vm->arena, vm->cursor);
+	ft_printf("pc = %d\nregs = %d\n",*(vm->arena + vm->cursor->program_counter), vm->cursor->regs[5]);
 	// ft_printf("%p\n%p\n", vm->cursor->program_counter + MEM_SIZE - 1, &(vm->arena[MEM_SIZE - 1]));
 	// ft_printf("%d\n%d\n", *(vm->cursor->program_counter + MEM_SIZE - 1), vm->arena[MEM_SIZE - 1]);
 	return (0);

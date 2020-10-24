@@ -6,11 +6,11 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:15:21 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/22 22:45:44 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/24 14:32:44 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "operation.h"
+#include "vm.h"
 
 #define T_DIR1	T_DIR + 2
 
