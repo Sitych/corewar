@@ -6,7 +6,7 @@
 /*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 15:54:42 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/26 12:10:00 by dima             ###   ########.fr       */
+/*   Updated: 2020/10/26 12:46:41 by dima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,27 @@ static uint32_t		swap_bit_16(uint16_t byte)
 	byte ^= 0xFFFFFFFF;
 	return (-byte);
 }
+void		get_params(int32_t *args, uint8_t *arena, t_carriage *carriage)
+{
+	int32_t i;
+	int32_t	shift;
+	uint8_t	*ptr;
+	uint8_t	type_args[MAX_ARGS];
+
+	ptr = arena + carriage->program_counter + OPCODE_SIZE;
+	shift = 0;
+	i = 0;
+	while (i < g_op_tab[carriage->opcode - 1].col_args)
+	{
+		if ((*ptr >> (CHAR_BIT - (i + 1) * 2)) & 0x03 == REG_CODE)
+		{
+			args[i] = (uint32_t)(*(uint8_t*)ptr);
+		}
+	}
+	i = 0;
+	
+}
+
 // нет проверки типа аргументов на валидность
 int		op_ld(uint8_t *arena, t_carriage *carriage)
 {

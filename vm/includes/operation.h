@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:09:41 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/24 18:40:56 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:31:22 by dima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define OPERATION_H
 
 # include "vm.h"
+
+# define FIRST_TYPE		6
+# define SECOND_TYPE	4
+# define THIRD_TYPE		2
 
 struct						s_op
 {
