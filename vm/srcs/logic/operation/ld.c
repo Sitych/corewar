@@ -6,11 +6,12 @@
 /*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 15:54:42 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/26 12:46:41 by dima             ###   ########.fr       */
+/*   Updated: 2020/10/26 15:44:09 by dima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "operation.h"
+#include <math.h>
 
 static uint32_t		swap_bit_32(uint32_t byte)
 {
@@ -50,25 +51,49 @@ static uint32_t		swap_bit_16(uint16_t byte)
 	byte ^= 0xFFFFFFFF;
 	return (-byte);
 }
-void		get_params(int32_t *args, uint8_t *arena, t_carriage *carriage)
+
+int32_t		take_arg(const uint8_t *ptr, uint8_t size)
+{
+	int32_t	arg;
+	int32_t	i;
+
+	arg = 0;
+	i = 0;
+	while (i < size)
+	{
+		arg |= *(ptr + i);
+		if (i != size - 1)
+			arg << CHAR_BIT * (i + 1);
+		i++;
+	}
+	if (size == IND_SIZE_BYTE)
+	
+	return (arg);
+}
+
+void		get_params(t_arg *args, uint8_t *arena, t_carriage *carriage)
 {
 	int32_t i;
 	int32_t	shift;
 	uint8_t	*ptr;
-	uint8_t	type_args[MAX_ARGS];
 
 	ptr = arena + carriage->program_counter + OPCODE_SIZE;
 	shift = 0;
 	i = 0;
 	while (i < g_op_tab[carriage->opcode - 1].col_args)
 	{
-		if ((*ptr >> (CHAR_BIT - (i + 1) * 2)) & 0x03 == REG_CODE)
-		{
-			args[i] = (uint32_t)(*(uint8_t*)ptr);
-		}
+		args[i].type = (*ptr >> (CHAR_BIT - (i + 1) * 2)) & 0x03; 
+		if (args[i].type == REG_CODE)
+			args[i].value = take_arg(ptr + shift, REG_SIZE_BYTE);
+		else if (args[i].type == IND_CODE)
+			args[i].value = take_arg(ptr + shift, IND_SIZE_BYTE);
+		else if (args[i].type == DIR_CODE)
+			args[i].value = take_arg(ptr + shift, DIR_SIZE_BYTE);
+		else
+			return (0);
+		shift += pow(2, 2 + args[i].type);
+		i++;
 	}
-	i = 0;
-	
 }
 
 // нет проверки типа аргументов на валидность
