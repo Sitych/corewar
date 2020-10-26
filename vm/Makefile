@@ -37,7 +37,7 @@ SRCS = $(addprefix $(SRC_DIR), $(SRCS_LST))
 
 OBJ_DIR = objects/
 OBJ_DIRS = $(addprefix $(OBJ_DIR), $(SRC_DIR_PARSE)) $(addprefix $(OBJ_DIR), $(SRC_DIR_LOGIC)) \
-			$(addprefix $(OBJ_DIR), $(SRC_DIR_OUTPUT)) $(addprefix $(OBJ_DIR), $(SRC_DIR_VALIDATE)), \
+			$(addprefix $(OBJ_DIR), $(SRC_DIR_OUTPUT)) $(addprefix $(OBJ_DIR), $(SRC_DIR_VALIDATE)) \
 			$(addprefix $(OBJ_DIR), $(SRC_DIR_OPERATION))
 OBJ_LST = $(patsubst %.c, %.o, $(SRCS_LST))
 OBJ	= $(addprefix $(OBJ_DIR), $(OBJ_LST))

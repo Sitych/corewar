@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ld.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 15:54:42 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/24 18:30:51 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:10:00 by dima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "operation.h"
 
-static uint32_t		swap_bit(uint32_t byte)
+static uint32_t		swap_bit_32(uint32_t byte)
 {
 	uint8_t	c;
 	uint8_t	*buf;
@@ -30,6 +30,26 @@ static uint32_t		swap_bit(uint32_t byte)
 	return (*(uint32_t*)buf);
 }
 
+static uint32_t		swap_bit_16(uint16_t byte)
+{
+	uint8_t	c;
+	uint8_t	*buf;
+	int		i;
+
+	i = 0;
+	ft_printf("byte = %d\n", byte);
+	buf = (uint8_t*)&byte;
+	while (i < 2 / 2)
+	{
+		c = buf[i];
+		buf[i] = buf[1 - i];
+		buf[1 - i] = c;
+		i++;
+	}
+	byte = *(uint32_t*)buf - 1;
+	byte ^= 0xFFFFFFFF;
+	return (-byte);
+}
 // нет проверки типа аргументов на валидность
 int		op_ld(uint8_t *arena, t_carriage *carriage)
 {
@@ -71,15 +91,20 @@ int		op_ld(uint8_t *arena, t_carriage *carriage)
 		}
 		i++;
 	}
+	ft_printf("args[0] = %d\nargs[1] = %d\n", args[0], args[1]);
 	// type_args[0] - тип первого аргумента
 	if (type_args[0] == DIR_CODE)
 	{
-		carriage->regs[args[1]] = swap_bit(args[0]);
+		carriage->regs[args[1]] = swap_bit_32(args[0]);
 	}
 	else if (type_args[0] == IND_CODE)
 	{
-		ptr = arena + carriage->program_counter + args[0] % IDX_MOD;
-		carriage->regs[args[1]] = *(uint32_t*)ptr;
+		args[0] = swap_bit_16((uint32_t)args[0]);
+		if ((int32_t)(carriage->program_counter + args[0]) < 0)
+			ptr = arena + MEM_SIZE + carriage->program_counter + args[0] % IDX_MOD;	
+		else
+			ptr = arena + carriage->program_counter + 2 + (int32_t)args[0] % IDX_MOD;
+		carriage->regs[args[1]] = *ptr;
 	}
 	carriage->program_counter += OPCODE_SIZE + TYPE_ARGS_SIZE;
 	i = 0;
