@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/28 19:30:44 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 00:30:44 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define DIR_SIZE_BYTE	4
 # define IND_SIZE_BYTE	2
 
-# define THREE_BITS		0x03
+# define THR_BITS		0x03
 
 typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;

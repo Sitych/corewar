@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:15:21 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/24 14:32:44 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 00:07:12 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,3 @@ int		op_live(uint8_t *arena, t_carriage *carriage)
 	carriage->program_counter = (carriage->program_counter + T_DIR1 + OPCODE_SIZE) % MEM_SIZE;
 	return (1);
 }
-
-// int		get_parametrs(uint32_t *args, uint8_t *position, uint8_t opcode)
-// {
-// 	int 	i;
-// 	int		col_args;
-// 	uint8_t	*type_args;
-
-// 	i = 0;
-// 	col_args = g_op_tab[opcode].col_args;
-// 	if (col_args > 1 || opcode == 15)
-// 	{
-// 		type_args = *position;
-		
-// 	}
-// }
