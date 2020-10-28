@@ -3,75 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ld.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 15:54:42 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/26 15:44:09 by dima             ###   ########.fr       */
+/*   Updated: 2020/10/28 20:48:04 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "operation.h"
 #include <math.h>
 
-static uint32_t		swap_bit_32(uint32_t byte)
-{
-	uint8_t	c;
-	uint8_t	*buf;
-	int		i;
-
-	i = 0;
-	buf = (uint8_t*)&byte;
-	while (i < 4 / 2)
-	{
-		c = buf[i];
-		buf[i] = buf[3 - i];
-		buf[3 - i] = c;
-		i++;
-	}
-	return (*(uint32_t*)buf);
-}
-
-static uint32_t		swap_bit_16(uint16_t byte)
-{
-	uint8_t	c;
-	uint8_t	*buf;
-	int		i;
-
-	i = 0;
-	ft_printf("byte = %d\n", byte);
-	buf = (uint8_t*)&byte;
-	while (i < 2 / 2)
-	{
-		c = buf[i];
-		buf[i] = buf[1 - i];
-		buf[1 - i] = c;
-		i++;
-	}
-	byte = *(uint32_t*)buf - 1;
-	byte ^= 0xFFFFFFFF;
-	return (-byte);
-}
-
-int32_t		take_arg(const uint8_t *ptr, uint8_t size)
+int32_t		get_arg(uint8_t *ptr, uint8_t type)
 {
 	int32_t	arg;
 	int32_t	i;
+	uint8_t	size;
 
 	arg = 0;
 	i = 0;
+	size = (type == REG_CODE) ? REG_SIZE_BYTE : 0;
+	size = (type == IND_CODE) ? IND_SIZE_BYTE : size;
+	size = (type == DIR_CODE) ? DIR_SIZE_BYTE : size;
+	if (size == 0)
+		ft_printf("BLYA");
 	while (i < size)
 	{
 		arg |= *(ptr + i);
 		if (i != size - 1)
-			arg << CHAR_BIT * (i + 1);
+			arg = arg << CHAR_BIT;
 		i++;
 	}
-	if (size == IND_SIZE_BYTE)
-	
 	return (arg);
 }
 
-void		get_params(t_arg *args, uint8_t *arena, t_carriage *carriage)
+int32_t		get_params(t_arg *args, uint8_t *arena, t_carriage *carriage)
 {
 	int32_t i;
 	int32_t	shift;
@@ -82,18 +47,13 @@ void		get_params(t_arg *args, uint8_t *arena, t_carriage *carriage)
 	i = 0;
 	while (i < g_op_tab[carriage->opcode - 1].col_args)
 	{
-		args[i].type = (*ptr >> (CHAR_BIT - (i + 1) * 2)) & 0x03; 
-		if (args[i].type == REG_CODE)
-			args[i].value = take_arg(ptr + shift, REG_SIZE_BYTE);
-		else if (args[i].type == IND_CODE)
-			args[i].value = take_arg(ptr + shift, IND_SIZE_BYTE);
-		else if (args[i].type == DIR_CODE)
-			args[i].value = take_arg(ptr + shift, DIR_SIZE_BYTE);
-		else
-			return (0);
+		args[i].type = (*ptr >> (CHAR_BIT - (i + 1) * 2)) & THREE_BITS;
+		args[i].value = get_arg(ptr + shift, args[i].type);
+		//Написать для indirect
 		shift += pow(2, 2 + args[i].type);
 		i++;
 	}
+	return (1);
 }
 
 // нет проверки типа аргументов на валидность
@@ -117,17 +77,17 @@ int		op_ld(uint8_t *arena, t_carriage *carriage)
 	{
 		if (type_args[i] == REG_CODE)
 		{
-			args[i] = (uint32_t)(*(uint8_t*)ptr);
+			args[i] = get_arg(ptr, REG_SIZE_BYTE);
 			ptr += REG_SIZE_BYTE;
 		}
 		else if (type_args[i] == DIR_CODE)
 		{		// нет определение отрицательного числа
-			args[i] = (uint32_t)(*(uint32_t*)ptr);
+			args[i] = get_arg(ptr , DIR_SIZE_BYTE);
 			ptr += DIR_SIZE_BYTE;
 		}
 		else if (type_args[i] == IND_CODE)
 		{		// нет определение отрицательного числа
-			args[i] = (uint32_t)(*(uint16_t*)ptr);
+			args[i] = get_arg(ptr , IND_SIZE_BYTE);
 			ptr += IND_SIZE_BYTE;
 		}
 		else
@@ -137,15 +97,14 @@ int		op_ld(uint8_t *arena, t_carriage *carriage)
 		}
 		i++;
 	}
-	ft_printf("args[0] = %d\nargs[1] = %d\n", args[0], args[1]);
+	ft_printf("args[0] = %x\nargs[1] = %d\n", args[0], args[1]);
 	// type_args[0] - тип первого аргумента
 	if (type_args[0] == DIR_CODE)
 	{
-		carriage->regs[args[1]] = swap_bit_32(args[0]);
+		carriage->regs[args[1]] = args[0];
 	}
 	else if (type_args[0] == IND_CODE)
 	{
-		args[0] = swap_bit_16((uint32_t)args[0]);
 		if ((int32_t)(carriage->program_counter + args[0]) < 0)
 			ptr = arena + MEM_SIZE + carriage->program_counter + args[0] % IDX_MOD;	
 		else
@@ -166,3 +125,8 @@ int		op_ld(uint8_t *arena, t_carriage *carriage)
 	}
 	return (1);
 }
+// 1	2	3
+// 01	10	11
+// 8	16	32
+// 2^3	2^4	2^5
+// 2+1	2+2	2+3

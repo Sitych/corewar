@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/24 15:22:03 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/28 19:30:44 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define DIR_SIZE_BYTE	4
 # define IND_SIZE_BYTE	2
 
+# define THREE_BITS		0x03
+
 typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;
 typedef struct s_vm			t_vm;
@@ -38,11 +40,11 @@ typedef struct s_carriage	t_carriage;
 struct s_carriage
 {
 	int32_t					regs[REG_NUMBER];
-	int						cycle_to_die;
-	int						live;
+	uint32_t				cycle_to_die;
+	int8_t					live;
 	uint8_t					opcode;
-	int						carry;
-	int						program_counter;
+	int8_t					carry;
+	int32_t					program_counter;
 	t_carriage				*next;
 };
 
