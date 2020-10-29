@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 15:59:31 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/28 20:33:25 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 17:55:49 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,18 @@ int main(int argc, char **argv)
 	argv[0]++;
 	vm->champs = valid_champions(files, col_champs);
 	init_arena(vm);
-	vm->cursor = valid_cursor(vm->champs, col_champs);
+	vm->carrige = valid_carrige(vm->champs, col_champs);
 	arena_print(vm->arena);
-	// while (vm->cursor)
+	// while (vm->carrige)
 	// {
-	// 	ft_printf("%d\n%d\n", vm->cursor->program_counter, vm->cursor->regs[0]);
-	// 	vm->cursor = vm->cursor->next;
+	// 	ft_printf("%d\n%d\n", vm->carrige->program_counter, vm->carrige->regs[0]);
+	// 	vm->carrige = vm->carrige->next;
 	// }
-	// op_live(vm->arena, vm->cursor);
-	vm->cursor->opcode = 2;
-	op_ld(vm->arena, vm->cursor);
-	ft_printf("pc = %d\nregs = %d\n",*(vm->arena + vm->cursor->program_counter), vm->cursor->regs[5]);
-	// ft_printf("%p\n%p\n", vm->cursor->program_counter + MEM_SIZE - 1, &(vm->arena[MEM_SIZE - 1]));
-	// ft_printf("%d\n%d\n", *(vm->cursor->program_counter + MEM_SIZE - 1), vm->arena[MEM_SIZE - 1]);
+	// op_live(vm->arena, vm->carrige);
+	vm->carrige->opcode = 2;
+	op_ld(vm->arena, vm->carrige);
+	ft_printf("pc = %d\nregs = %d\n",*(vm->arena + vm->carrige->program_counter), vm->carrige->regs[5]);
+	// ft_printf("%p\n%p\n", vm->carrige->program_counter + MEM_SIZE - 1, &(vm->arena[MEM_SIZE - 1]));
+	// ft_printf("%d\n%d\n", *(vm->carrige->program_counter + MEM_SIZE - 1), vm->arena[MEM_SIZE - 1]);
 	return (0);
 }

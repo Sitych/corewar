@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operation.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dima <dima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:09:41 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/26 15:20:06 by dima             ###   ########.fr       */
+/*   Updated: 2020/10/29 17:57:22 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ struct						s_op
 	int		code_type_arg;
 	int		(*func)(uint8_t *arena, t_carriage *carriage);
 };
-
-typedef	struct				s_arg
-{
-	uint8_t	type;
-	int32_t	value;
-}							t_arg;
 
 t_op    g_op_tab[17] =
 {

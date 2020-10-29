@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 15:54:42 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/29 00:40:04 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 17:58:57 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int32_t		get_arg(uint8_t *ptr, uint8_t type)
 			arg = arg << CHAR_BIT;
 		i++;
 	}
+	if (type == IND_CODE)
+		arg = (int32_t)((int16_t)arg);
 	return (arg);
 }
 
@@ -79,7 +81,6 @@ int32_t		get_params(t_arg **args, uint8_t *arena, t_carriage *carriage)
 			else
 				(*args)[i].value = *(arena + carriage->program_counter + 
 													(*args)[i].value % IDX_MOD);
-			(*args)[i].value = *ptr;
 		}
 		shift += ft_size((*args)[i].type);
 		i++;
@@ -95,8 +96,7 @@ int		op_ld(uint8_t *arena, t_carriage *carriage)
 	t_arg		*args;
 
 	ptr = arena + carriage->program_counter + OPCODE_SIZE;
-	if ((args = (t_arg*)ft_memalloc(sizeof(t_arg) * MAX_ARGS)) == NULL)
-		ft_exit("ERROR: MALLOC ERROR");
+	args = carriage->args;
 	shift = get_params(&args, arena, carriage);
 	ft_printf("args[0] = %d\nargs[1] = %d\n", args[0].value, args[1].value);
 	// type_args[0] - тип первого аргумента

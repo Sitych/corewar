@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 16:37:12 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/22 22:41:16 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 17:55:57 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ t_champion	*valid_champions(char **chmp_file_name, size_t col_champs)
 	return (head);
 }
 
-t_carriage	*valid_cursor(t_champion *players, int col_champs)
+t_carriage	*valid_carrige(t_champion *players, int col_champs)
 {
-	t_carriage	*cursor;
+	t_carriage	*carrige;
 	t_carriage	*head;
 	
 	head = init_carrige(col_champs, players->id);
-	cursor = head;
+	carrige = head;
 	players = players->next;
 	while (players != NULL)
 	{
-		cursor->next = init_carrige(col_champs, players->id);
-		cursor = cursor->next;
+		carrige->next = init_carrige(col_champs, players->id);
+		carrige = carrige->next;
 		players = players->next;
 	}
 	return (head);

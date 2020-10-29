@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/29 00:30:44 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/29 17:57:14 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_op			t_op;
 typedef struct s_champion	t_champion;
 typedef struct s_vm			t_vm;
 typedef struct s_carriage	t_carriage;
+typedef struct s_arg		t_arg;
 
 struct s_carriage
 {
@@ -45,6 +46,7 @@ struct s_carriage
 	uint8_t					opcode;
 	int8_t					carry;
 	int32_t					program_counter;
+	t_arg					*args;
 	t_carriage				*next;
 };
 
@@ -55,7 +57,7 @@ struct						s_vm
 	
 	t_champion				*champs;
 	size_t					col_champs;
-	t_carriage				*cursor;
+	t_carriage				*carrige;
 };
 
 
@@ -67,6 +69,12 @@ struct						s_champion
 	t_champion	*next;
 };
 
+struct						s_arg
+{
+	uint8_t	type;
+	int32_t	value;
+};
+
 void						ft_exit(char *str);
 t_champion					*init_champ(int id);
 t_vm						*init_vm(size_t col_champs);
@@ -74,7 +82,7 @@ void						init_arena(t_vm *vm);
 t_carriage					*init_carrige(int col_champs, int id);
 t_champion					*parse_champion(char *chmp_file_name, int id);
 t_champion					*valid_champions(char **chmp_file_name, size_t col_champs);
-t_carriage					*valid_cursor(t_champion *players, int col_champs);
+t_carriage					*valid_carrige(t_champion *players, int col_champs);
 
 
 int			op_live(uint8_t *arena, t_carriage *carriage);
