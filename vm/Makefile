@@ -20,7 +20,7 @@ SRC_DIR_OPERATION = $(addprefix $(SRC_DIR_LOGIC), operation/)
 
 SRC_MAIN = main.c
 SRC_PARSE_FILES = parse_champion.c 
-SRC_LOGIC_FILES = init.c validation.c
+SRC_LOGIC_FILES = init.c validation.c operation.c
 SRC_OPERATION_FILES = live.c ld.c
 SRC_OUTPUT_FILES =
 

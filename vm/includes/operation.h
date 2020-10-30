@@ -6,7 +6,7 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 19:09:41 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/29 17:57:22 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/30 17:21:51 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define OPERATION_H
 
 # include "vm.h"
-
-# define FIRST_TYPE		6
-# define SECOND_TYPE	4
-# define THIRD_TYPE		2
 
 struct						s_op
 {

@@ -6,16 +6,14 @@
 /*   By: qjosmyn <qjosmyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 14:52:46 by qjosmyn           #+#    #+#             */
-/*   Updated: 2020/10/29 17:57:14 by qjosmyn          ###   ########.fr       */
+/*   Updated: 2020/10/30 17:22:00 by qjosmyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
-
 # include "op.h"
 # include "libftprintf.h"
-
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
@@ -83,7 +81,7 @@ t_carriage					*init_carrige(int col_champs, int id);
 t_champion					*parse_champion(char *chmp_file_name, int id);
 t_champion					*valid_champions(char **chmp_file_name, size_t col_champs);
 t_carriage					*valid_carrige(t_champion *players, int col_champs);
-
+int32_t						get_args(t_arg **args, uint8_t *arena, t_carriage *carriage);
 
 int			op_live(uint8_t *arena, t_carriage *carriage);
 int			op_ld(uint8_t *arena, t_carriage *carriage);
